@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-s3-sample-app",
+  "version": "1.0.0",
+  "description": "Node.js S3 Sample Application for EKS Cross-Account IAM Roles.",
+  "author": "Justin Plute",
+  "license": "MIT",
+  "homepage": "https://github.com/JustinPlute/eks-cross-account-iam-roles",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/JustinPlute/eks-cross-account-iam-roles.git"
+  },
+  "main": "server.js",
+  "keywords": [
+    "nodejs",
+    "s3",
+    "express"
+  ],
+  "dependencies": {
+    "express": "^4.16.4",
+    "aws-sdk": ">= 2.0.9"
+  }
+}

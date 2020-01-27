@@ -1,0 +1,21 @@
+apiVersion: v2
+name: nodejs-s3-sample-app
+version: 1.0.0
+appVersion: 1.0.0
+description: Node.js sample application to interact with an S3 Bucket.
+icon: https://raw.githubusercontent.com/kubernetes/kubernetes/master/logo/logo.svg
+keywords:
+- nodejs
+- eks
+- s3
+- express
+- iam
+- application
+home: https://github.com/JustinPlute/eks-cross-account-iam-roles/chart
+sources:
+- https://github.com/JustinPlute/eks-cross-account-iam-roles
+- https://github.com/JustinPlute/eks-cross-account-iam-roles/chart
+maintainers:
+- name: Justin Plute
+  email: rplute@gmail.com
+engine: gotpl

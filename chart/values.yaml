@@ -1,0 +1,158 @@
+# Default values for nodejs-s3-sample-app
+# This is a YAML-formatted file.
+# Declare name/value pairs to be passed into your templates.
+# name: value
+
+image:
+  repository: justinplute/nodejs-s3-sample-app
+  tag: v1.0.0
+  pullPolicy: IfNotPresent
+  pullSecrets: []
+
+replicaCount: 1
+
+## Here annotations can be added to the Node.js S3 Sample App deployment
+annotations: {}
+
+## Here labels can be added to the Node.js S3 Sample App deployment
+##
+labels: {}
+# kubernetes.io/name: "Node.js S3 Sample App"
+
+## Additional container environment variables
+##
+extraEnv: []
+# - name: SOME_VAR
+#   value: 'some value'
+
+# Annotations to be added to Node.js pods
+## Recommended value
+# podAnnotations:
+#   seccomp.security.alpha.kubernetes.io/pod: 'runtime/default'
+podAnnotations: {}
+
+## SecurityContext for the Node.js container
+SecurityContext: {}
+
+## Node labels for pod assignment
+## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+##
+nodeSelector: {}
+
+## List of node taints to tolerate (requires Kubernetes >= 1.6)
+tolerations: []
+#  - key: "key"
+#    operator: "Equal|Exists"
+#    value: "value"
+#    effect: "NoSchedule|PreferNoSchedule|NoExecute"
+
+## Affinity
+## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
+affinity: {}
+
+# priorityClassName: ""
+
+service:
+  type: ClusterIP
+  externalPort: 443
+
+  ## This allows an override of the heapster service name
+  ## Default: {{ .Chart.Name }}
+  ##
+  # nameOverride:
+
+  # LoadBalancerSourcesRange is a list of allowed CIDR values, which are combined with ServicePort to
+  # set allowed inbound rules on the security group assigned to the master load balancer
+  # loadBalancerSourceRanges: []
+
+  ## Node.js Service annotations
+  annotations: {}
+
+  ## Here labels can be added to the Node.js service
+  ##
+  labels: {}
+  # kubernetes.io/name: "Node.js App"
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 100Mi
+  requests:
+    cpu: 100m
+    memory: 100Mi
+
+ingress:
+  ## If true, Node.js Ingress will be created.
+  ##
+  enabled: false
+
+  ## Node.js Ingress annotations
+  ##
+  ## Add custom labels
+  # labels:
+  #   key: value
+  # annotations:
+  #   kubernetes.io/ingress.class: nginx
+  #   kubernetes.io/tls-acme: 'true'
+  ## If you use ingress-nginx < 0.21.0
+  #   nginx.ingress.kubernetes.io/secure-backends: "true"
+  ## if you use ingress-nginx >= 0.21.0
+  #   nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+
+  ## Node.js Ingress paths
+  ##
+  paths:
+    - /
+  #  - /*
+
+  ## Node.js Ingress hostnames
+  ## Must be provided if Ingress is enabled
+  ##
+  # hosts:
+  #   - nodejs.domain.com
+
+  ## Node.js Ingress TLS configuration
+  ## Secrets must be manually created in the namespace
+  ##
+  # tls:
+  #   - secretName: nodejs-tls
+  #     hosts:
+  #       - nodejs.domain.com
+
+rbac:
+  # Specifies whether RBAC resources should be created
+  create: true
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+  # Add IAM Role here for pod to assume.
+  annotations: 
+    # eks.amazonaws.com/role-arn: arn:aws:iam::AWS_ACCOUNT_ID:role/IAM_ROLE_NAME
+
+
+
+livenessProbe:
+  # Number of seconds to wait before sending first probe
+  initialDelaySeconds: 30
+  # Number of seconds to wait for probe response
+  timeoutSeconds: 30
+
+podDisruptionBudget:
+  # https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+  enabled: false
+  minAvailable:
+  maxUnavailable:
+
+
+## PodSecurityContext for pod level securityContext
+##
+# securityContext:
+#   runAsUser: 1001
+#   runAsGroup: 2001
+securityContext: {}
+
+networkPolicy: false

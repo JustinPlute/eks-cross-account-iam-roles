@@ -1,0 +1,20 @@
+{{- if .Values.networkPolicy -}}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ template "nodejs-s3-sample-app.fullname" . }}
+  labels:
+    app: {{ template "nodejs-s3-sample-app.name" . }}
+    chart: {{ template "nodejs-s3-sample-app.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ template "nodejs-s3-sample-app.name" . }}
+      release: {{ .Release.Name }}
+  ingress:
+  - ports:
+    - port: 8080
+      protocol: TCP
+{{- end -}}
